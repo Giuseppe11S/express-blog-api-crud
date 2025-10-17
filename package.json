@@ -1,0 +1,24 @@
+{
+  "name": "express-blog-api-crud",
+  "version": "1.0.0",
+  "description": "API CRUD FIRST PART",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Giuseppe11S/express-blog-api-crud.git"
+  },
+  "author": "Giuseppe11S",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Giuseppe11S/express-blog-api-crud/issues"
+  },
+  "homepage": "https://github.com/Giuseppe11S/express-blog-api-crud#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "watch": "^1.0.2"
+  }
+}
