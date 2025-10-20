@@ -22,7 +22,25 @@ const showPost = (req, res) => {
 
 // STORE - Creazione di un nuovo post
 const storePost = (req, res) => {
-  res.send('Creazione delle ricette');
+  console.log(req.body); // log dei dati inseriti della richiesta in post 
+  const newId = posts[posts.length - 1].id + 1;
+  // nuovo post con i dati inseriti in post
+  const newPost = {
+    id: newId,
+    title: req.body.title,
+    content: req.body.content,
+    image: req.body.image,
+    tags: req.body.tags,
+  }
+  
+  posts.push(newPost);
+  console.log('Lista creata', newPost);
+
+  res.status(201).json({ 
+    message: 'Nuovo post creato con successo!',
+    post: newPost,
+  });
+  
 };
 
 // UPDATE - Modifica integrale
@@ -50,7 +68,6 @@ const deletePost = (req, res) => {
   console.log('Lista aggiornata:', posts);
 
   res.sendStatus(204);
-
 };
 
 // export di tutte le funciozioni di CRUD
