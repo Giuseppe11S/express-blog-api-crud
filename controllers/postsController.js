@@ -45,7 +45,32 @@ const storePost = (req, res) => {
 
 // UPDATE - Modifica integrale
 const updatePost = (req, res) => {
+
+  const id = parseInt(req.params.id);
+  const postTrovato = posts.find(post => post.id === id);
+  console.log('Post trovato:', postTrovato);
+  
+  if(!postTrovato){
+    return res.status(404).send('Post non trovato');
+  }
+  const postUpdated = {
+    id: postTrovato.id,
+    title: req.body.title,
+    content: req.body.content,
+    image: req.body.image,
+    tags: req.body.tags,
+  }
+
+  // aggiorno l'elemento dell'array mantenendo lo stesso id 
+  posts[postTrovato] = postUpdated;
+
+  res.json({
+    message: 'Post aggiornato con successo!',
+    post: postUpdated,
+  });
+  
   res.send('Modifica integrale della ricetta' + req.params.id);
+  
 };
 
 // MODIFY - Modifica parziale
