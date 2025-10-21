@@ -5,10 +5,18 @@ const express = require('express');
 // utilizzo di express
 const app = express();
 
-// middleware per jleggere il body in formato json
+
+// per leggere il body in formato json
 app.use(express.json());
+
+// import middleware per ERRORE 404
+const notFound = require('./middleware/notFound404');
+// import middleware per ERRORE 500
+const errorHandler = require('./middleware/errorHandler');
+
 // utilizzo di express router
 const postsRouter = require('./routing/posts');
+
 // tutti i file dentro la cartella public saranno accessibili dal browser
 app.use(express.static('public'));
 
@@ -24,6 +32,13 @@ app.use(express.json());
 
 // tutte le rotte corripondono a posts
 app.use('/posts', postsRouter)
+
+//middlw per per gestione errori interni
+app.use(errorHandler)
+
+
+// middlw per errore 404 di rotta non inesistente
+app.use(notFound);
 
 // avvio del server
 app.listen(port, () => {

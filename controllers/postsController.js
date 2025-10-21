@@ -3,6 +3,8 @@ const posts = require('../data/postsData');
 
 // INDEX
 const indexPost = (req, res) => {
+  // debug per err 505
+  // funzioneBella()
   res.json(posts);
 }
 
@@ -23,7 +25,10 @@ const showPost = (req, res) => {
 // STORE - Creazione di un nuovo post
 const storePost = (req, res) => {
   console.log(req.body); // log dei dati inseriti della richiesta in post 
+
+  // genero un nuovo id incrementando l'id dell'ultimo post 
   const newId = posts[posts.length - 1].id + 1;
+   
   // nuovo post con i dati inseriti in post
   const newPost = {
     id: newId,
@@ -49,10 +54,11 @@ const updatePost = (req, res) => {
   const id = parseInt(req.params.id);
   const postTrovato = posts.find(post => post.id === id);
   console.log('Post trovato:', postTrovato);
-  
+
   if(!postTrovato){
     return res.status(404).send('Post non trovato');
   }
+
   const postUpdated = {
     id: postTrovato.id,
     title: req.body.title,
@@ -69,17 +75,19 @@ const updatePost = (req, res) => {
     post: postUpdated,
   });
   
-  res.send('Modifica integrale della ricetta' + req.params.id);
   
 };
 
 // MODIFY - Modifica parziale
 const modifyPost = (req, res) => {
+
   res.send('Modifica parziale della ricetta' + req.params.id);
+  
 };
 
 // DELETE - Eliminazione
 const deletePost = (req, res) => {
+
   const id = parseInt(req.params.id);
   res.send('Eliminazione della ricetta' + req.params.id);
 
@@ -93,6 +101,7 @@ const deletePost = (req, res) => {
   console.log('Lista aggiornata:', posts);
 
   res.sendStatus(204);
+
 };
 
 // export di tutte le funciozioni di CRUD
