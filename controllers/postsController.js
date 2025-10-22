@@ -3,7 +3,7 @@ const posts = require('../data/postsData');
 
 // INDEX
 const indexPost = (req, res) => {
-  // debug per err 505
+  // debug per err 500
   // funzioneBella()
   res.json(posts);
 }
@@ -22,7 +22,7 @@ const showPost = (req, res) => {
   }
 }
 
-// STORE - Creazione di un nuovo post
+// STORE per creazione di un nuovo post
 const storePost = (req, res) => {
   console.log(req.body); // log dei dati inseriti della richiesta in post 
 
@@ -48,7 +48,7 @@ const storePost = (req, res) => {
   
 };
 
-// UPDATE - Modifica integrale
+// UPDATE moodifica integrale
 const updatePost = (req, res) => {
 
   const id = parseInt(req.params.id);
@@ -81,8 +81,27 @@ const updatePost = (req, res) => {
 // MODIFY - Modifica parziale
 const modifyPost = (req, res) => {
 
-  res.send('Modifica parziale della ricetta' + req.params.id);
+  const id = parseInt(req.params.id);
+
+  const post = posts.find(post => post.id === id);
+
+  if(!post) {
+   res.status(404);
+    return res.json({
+      error: 'Not found',
+      message: 'Post non trovato'
+    })
+  }
+
+  // aggiorno i campi presenti nel body dei post
+  req.body.title ? post.title = req.body.title : post.title = post.title;
+  req.body.content ? post.content = req.body.content : post.content = post.content;
+  req.body.image ? post.image = req.body.image : post.image = post.image;
+  req.body.tags ? post.tags = req.body.tags : post.tags = post.tags;
+
+  console.log(post);
   
+  res.json(posts)
 };
 
 // DELETE - Eliminazione

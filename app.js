@@ -33,12 +33,12 @@ app.use(express.json());
 // tutte le rotte corripondono a posts
 app.use('/posts', postsRouter)
 
-//middlw per per gestione errori interni
-app.use(errorHandler)
-
 
 // middlw per errore 404 di rotta non inesistente
 app.use(notFound);
+
+//middlw per per gestione errori interni
+app.use(errorHandler)
 
 // avvio del server
 app.listen(port, () => {
